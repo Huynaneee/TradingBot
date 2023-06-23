@@ -16,7 +16,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.math.BigDecimal;
-import java.util.List;
+import java.util.Map;
 
 @Entity
 @Table(name = "fix_price_fvg")
@@ -39,12 +39,21 @@ public class FixPriceFVG {
     private boolean isOrder;
 
     @Column(name = "simple_stop_loss")
-    private String stopLoss;
+    private BigDecimal stopLoss;
 
     @Column(name = "is_long")
     private boolean isLong;
 
-    @ElementCollection
-    private List<BigDecimal> priceBuyOrder;
+    @Column(name = "count_running_order")
+    @Builder.Default
+    private int countRunningOrder = 0;
 
+    @ElementCollection
+    private Map<String, BigDecimal> priceBuyOrder;
+
+    @Builder.Default
+    private boolean unprocessed = false;
+
+    @Builder.Default
+    private boolean isStopLossActive = false;
 }

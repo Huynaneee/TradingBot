@@ -1,25 +1,59 @@
 package com.strategy.tradingbot.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import java.math.BigDecimal;
+
 @Getter
 @Setter
-@RequiredArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@Entity
+@Table(name = "order_by_FVG")
 public class Order {
 
-    private String priceBuy;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    private String priceSell;
+    private String clientOrderId;
 
-    private String countBuy;
+    private Long orderId;
 
-    private String resultOrder;
+    private BigDecimal priceBuy;
 
-    private String stopLoss;
+    private BigDecimal priceSell;
 
-    private String takeProfit;
+    private BigDecimal countBuy;
 
+    @ManyToOne
+    @JoinColumn(name = "fix_price_id")
+    private FixPriceFVG fixPriceFVG;
+
+    private BigDecimal stopLoss;
+
+    private BigDecimal takeProfit;
+
+    @Builder.Default
+    private boolean isSent = false;
+
+    @Enumerated(EnumType.STRING)
     private StatusOrder statusOrder;
+
 }

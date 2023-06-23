@@ -1,6 +1,5 @@
 package com.strategy.tradingbot.entity;
 
-import com.binance.api.client.domain.market.CandlestickInterval;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -26,11 +25,14 @@ public class Candle {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String symbolName;
-    private ZonedDateTime dateTime;
+    private ZonedDateTime openDateTime;
+    private ZonedDateTime closeDateTime;
     private String candlestickInterval;
     private String highGround;
     private String lowGround;
     private String startBodyPrice;
     private String endBodyPrice;
     private boolean colorIsGreen;
+    @Builder.Default
+    private boolean FVG = false;
 }
